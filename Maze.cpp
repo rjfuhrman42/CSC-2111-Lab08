@@ -39,14 +39,12 @@ bool Maze::traverse(int row, int col)
 
    //DO THIS
    //test that the current grid location is a space (i.e. not a wall or already tried)
-   if (                                   )
+   if (maze->getElement(row, col) == SPACE)
    {
 
       //DO THIS
       //now it has been tried so mark it as tried
-
-
-
+		maze->setElement(row, col, TRIED);
 
       Sleep(75);  //slow down the maze traversal
       gui->update();
@@ -56,13 +54,34 @@ bool Maze::traverse(int row, int col)
       int height = maze->getNumRows();
       int width = maze->getNumCols();
 
-      if (                     )
+      if (row == width && col == height)
       {
          done = true;
       }
       else
       {
-
+		  
+		if(!done)
+		{
+			done = traverse(row , col + 1); //right
+		}
+		
+		if(!done)
+		{
+			done = traverse(row - 1, col); //down
+		}
+		
+		if(!done)
+		{
+			done = traverse(row, col - 1); //left
+		}
+		
+		if(!done)
+		{
+			done = traverse(row + 1, col); //up
+		}
+		
+		
          //DO THIS
          //make recursive calls that consider all four orthogonal directions
          //basically, we will try all possible paths until a solution is found
@@ -116,7 +135,7 @@ bool Maze::traverse(int row, int col)
 void Maze::mouseClicked(int x, int y)
 {}
 
-void Maze::draw(Cairo::RefPtr<Cairo::Context> cr, int width, int height)
+void Maze::draw(wxDC&dc, int width, int height)
 {
    int rows = maze->getNumRows();
    int cols = maze->getNumCols();
@@ -148,23 +167,23 @@ void Maze::draw(Cairo::RefPtr<Cairo::Context> cr, int width, int height)
 
          if (val == WALL)
          {
-            blackRect.draw(cr, x_pixel, y_pixel);
+            blackRect.draw(dc, x_pixel, y_pixel);
          }
          else if (val == SPACE)
          {
-            whiteRect.draw(cr, x_pixel, y_pixel);
+            whiteRect.draw(dc, x_pixel, y_pixel);
          }
          else if (val == TRIED)
          {
-            blueRect.draw(cr, x_pixel, y_pixel);
+            blueRect.draw(dc, x_pixel, y_pixel);
          }
          else if (val == BACKTRACK)
          {
-            redRect.draw(cr, x_pixel, y_pixel);
+            redRect.draw(dc, x_pixel, y_pixel);
          }
          else if (val == PATH)
          {
-            greenRect.draw(cr, x_pixel, y_pixel);
+            greenRect.draw(dc, x_pixel, y_pixel);
          }
       }
    }
