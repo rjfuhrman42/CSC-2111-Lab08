@@ -61,25 +61,6 @@ bool Maze::traverse(int row, int col)
       else
       {
 		  
-		if(!done)
-		{
-			done = traverse(row , col + 1); //right
-		}
-		
-		if(!done)
-		{
-			done = traverse(row - 1, col); //down
-		}
-		
-		if(!done)
-		{
-			done = traverse(row, col - 1); //left
-		}
-		
-		if(!done)
-		{
-			done = traverse(row + 1, col); //up
-		}
 		
 		
          //DO THIS
@@ -90,6 +71,14 @@ bool Maze::traverse(int row, int col)
          //don't use row++ or column++ use row + 1 or col + 1, etc.
          //IMPORTANT: make use of the boolean that is returned every time you call traverse
 
+         if (done == false)
+            done = traverse(row + 1, col);
+         if (done == false)
+            done = traverse(row, col + 1);
+         if (done == false)
+            done = traverse(row - 1, col);
+         if (done == false)
+             done = traverse(row, col - 1);
 
 
 
@@ -112,7 +101,7 @@ bool Maze::traverse(int row, int col)
       {
          //DO THIS
          //mark the path taken as the solution path
-
+         maze->setElement(row, col, PATH);
 
 
          gui->update();
@@ -121,7 +110,7 @@ bool Maze::traverse(int row, int col)
       else
       {
          //DO THIS
-
+         maze->setElement(row, col, BACKTRACK);
 
 
          Sleep(75);
