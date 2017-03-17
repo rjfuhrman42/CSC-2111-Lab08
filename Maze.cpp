@@ -54,7 +54,7 @@ bool Maze::traverse(int row, int col)
       int height = maze->getNumRows();
       int width = maze->getNumCols();
 
-      if (row == width && col == height)
+      if (row == height && col == width)
       {
          done = true;
       }
@@ -124,7 +124,7 @@ bool Maze::traverse(int row, int col)
 void Maze::mouseClicked(int x, int y)
 {}
 
-void Maze::draw(wxDC&dc, int width, int height)
+void Maze::draw(wxDC& dc, int width, int height)
 {
    int rows = maze->getNumRows();
    int cols = maze->getNumCols();
